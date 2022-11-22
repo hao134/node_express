@@ -1,5 +1,5 @@
 const socket = io("http://localhost:9000"); // the / namespace/endpoint
-
+let nsSocket = "";
 //listen for nsList, which is a list of all the namespaces.
 socket.on("nsList", (nsData) => {
   console.log("The list of namespaces has arrived");
@@ -17,7 +17,8 @@ socket.on("nsList", (nsData) => {
     elem.addEventListener("click", (e) => {
       const nsEndpoint = elem.getAttribute("ns");
       console.log(`${nsEndpoint} I should go to now`);
+      joinNs(nsEndpoint);
     });
   });
-  joinNs("wiki");
+  joinNs("/wiki");
 });
