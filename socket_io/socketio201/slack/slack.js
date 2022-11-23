@@ -16,6 +16,7 @@ const io = socketio(expressServer, {
 
 //io.of('/').on
 io.on("connection", (socket) => {
+  //console.log(socket.handshake);
   // build an array to send back with the img and endpoint for each NS
   let nsData = namespaces.map((ns) => {
     return {
@@ -33,6 +34,8 @@ io.on("connection", (socket) => {
 // loop through each namespace and listen for a connection
 namespaces.forEach((namespace) => {
   io.of(namespace.endpoint).on("connection", (nsSocket) => {
+    console.log(nsSocket.handshake);
+    const username = nsSocket.handshake.query.username;
     // console.log(`${nsSocket.id} has join ${namespace.endpoint}`);
     // a socket has connected to one of our chatgroup namespaces.
     // send that ns group into back
@@ -60,7 +63,7 @@ namespaces.forEach((namespace) => {
       const fullMsg = {
         text: msg.text,
         time: Date.now(),
-        username: "rbunch",
+        username: username,
         avatar: "https://via.placeholder.com/30",
       };
 

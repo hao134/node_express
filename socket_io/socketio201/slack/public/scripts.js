@@ -1,4 +1,10 @@
-const socket = io("http://localhost:9000"); // the / namespace/endpoint
+const username = prompt("what is your username");
+//const socket = io("http://localhost:9000"); // the / namespace/endpoint
+const socket = io("http://localhost:9000", {
+  query: {
+    username,
+  },
+}); // the / namespace/endpoint
 let nsSocket = "";
 //listen for nsList, which is a list of all the namespaces.
 socket.on("nsList", (nsData) => {
